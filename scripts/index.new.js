@@ -15,20 +15,14 @@
          } 
          else {
              idOnclick = 1;
+             if (deletedId.indexOf(song.id) < 0 ){
              createSongElement(song);
-            
+             }
          }
      }
  }
 
-/**
- * Removes a song from the player, and updates the DOM to match.
- *
- * @param {Number} songId - the ID of the song to remove
- */
-function removeSong(songId) {
-    
-}
+
 function durationToSeconds(duration){
     let mm = duration[0] + duration[1];
     let ss = duration[3] + duration[4];
@@ -46,11 +40,13 @@ function addSong(title, album, artist, duration, coverArt) {
           "title" : title,
           "album" : album,
           "artist" :  artist,
-          "duration" : duration,
+          "duration" : durationToSeconds(duration),
           "coverArt" : coverArt
         }
     ) 
 }
+
+
 function generateId (){
     let maxId = 0;
     for (let i = 0 ; i < player.songs.length ; i++){
@@ -60,18 +56,18 @@ function generateId (){
     }
     return maxId +1;
 }
-
+// Making the add-song-button actually do something
 function collectInfo (){
     let songInfo = [] ;
     let inputForm = document.getElementById("inputs");
         for ( i= 0 ; i < inputForm.length ; i++){
           songInfo.push(inputForm.elements[i].value);
-        }  
-       
+        }    
     addSong(songInfo[0], songInfo[1],songInfo[2],songInfo[3],songInfo[4]);
-   
     // clear the songs
     document.getElementById("songs").innerHTML = '';
+    // sort the with the new song
+    sortSongsByTitle();
     // load the songs again
    for ( const song of sortedSongs){
           createSongElement(song);
@@ -91,7 +87,7 @@ action.addEventListener("click", collectInfo);
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+   
 }
 
 /**
@@ -121,12 +117,44 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         const durationEl = document.createElement("duration");
         durationEl.innerText = durationMmss(duration);
         durationEl.classList.add(ClassByDurationLength (duration));
+        
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("deleteButton", "controllButton");
+        deleteButton.innerText = "X"; 
+        deleteButton.onclick =  function() {deteleSongButton(id)};
+        const playButton = document.createElement("button");
+        playButton.innerText = "|>"; 
+        playButton.classList.add("playButton", "controllButton");
+        playButton.onclick =  function() {playSong(id)};
+
         songEle.prepend(imgEl);
+        songEle.append(deleteButton);
+        songEle.append(playButton);
         songEle.append(durationEl);
-        songEle.onclick =  function() {playSong(id)};
         songss.append(songEle);
     }
-
+    function removeSong(id) {
+        let deletedSong = [];
+        let deletedFromPlaylist = [];
+        let x;
+        let k = 0;
+        for (x in player.songs){
+            if (player.songs[x].id === id){
+              k = 1;
+              deletedSong = player.songs.splice([x],1); 
+              break;
+            }
+        }   
+            k = 0; 
+            for (x in player.playlists){
+              if (player.playlists[x].songs.indexOf(id)>=0 ) {
+                k = 1;
+                deletedFromPlaylist = player.playlists[x].songs.splice(player.playlists[x].songs.indexOf(id),1);
+                break;
+              }
+            } 
+        }
+    
     function ClassByDurationLength (duration){
         if (duration < 120) {
             return ("ShortestDuration");
@@ -159,7 +187,7 @@ function createPlaylistElement({ id, name, songs }) {
     const playlistList = createElement("div", [], ["playlistsList"]);
      const playlistEl = createElement("span", [name], ["playlistsName"]);
      const playlistDuration = createElement("span", [" " +durationMmss(playlistTotalDuration(id))], ["playlistsName"]);
-     const playlistLegnth = createElement("span", [" " + songs.length +" songs"])
+     const playlistLegnth = createElement("span", [" " + songs.length +" songs"]);
      playlistList.append(playlistEl);
      playlistList.append(playlistLegnth);
      playlistList.append( playlistDuration);
@@ -203,20 +231,13 @@ function generateSongs() {
     // Your code here
 }
 
-/**
- * Inserts all playlists in the player as DOM elements into the playlists list.
- */
-function generatePlaylists() {
-    // Your code here
-}
 
-// Creating the page structure
-generateSongs()
-generatePlaylists()
 
-// Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
+
 let sortedSongs ;
+sortSongsByTitle();
+function sortSongsByTitle (){
      sortedSongs = player.songs.sort(function (a, b) {
        let titleA = a.title
        let titleB = b.title
@@ -227,11 +248,13 @@ let sortedSongs ;
          return 1;
          }
      })
- for ( const song of sortedSongs){
+    }
+
+for ( const song of sortedSongs){
       createSongElement(song);
  }
- let sortedplaylists ;
- sortedplaylists = player.playlists.sort(function (a, b) {
+ let sortedPlaylists ;
+ sortedPlaylists = player.playlists.sort(function (a, b) {
        let nameA = a.name
        let nameB = b.name
          if (nameA < nameB) {
@@ -241,7 +264,7 @@ let sortedSongs ;
          return 1;
          }
      })
- for ( const playlist of sortedplaylists){
+ for ( const playlist of sortedPlaylists){
      createPlaylistElement(playlist);
  }
  
@@ -277,11 +300,29 @@ let sortedSongs ;
      }  
  }                      
  
-//  const headerSongss = createElement("div", ["Songs:"], ["header"]);
-//  document.body.prepend(headerSongss);
+ const inputsPlace = document.getElementById("inputs")
+
+ const headerSongss = createElement("div", ["Songs:"], ["header"]);
+ document.body.prepend(headerSongss);
  
  const headerr = createElement("div", ["MP3 Player"], ["headerMain"]);
  document.body.prepend(headerr);
  
-//  const headerPlaylist = createElement("div", ["Playlists: "], ["header"]);
-//  playlists.before(headerPlaylist);
+
+
+const deletedId = [];
+
+function deteleSongButton(id){
+    document.getElementById("songs").innerHTML = '';
+    deletedId.push(id);
+    for ( const song of sortedSongs){
+            if (deletedId.indexOf(song.id) < 0){
+                createSongElement(song);
+            }  
+        }
+    document.getElementById("playlists").innerHTML = '';
+    for ( const playlist of sortedPlaylists){
+         playlist.songs.splice([playlist.songs.indexOf(id)],1) ; 
+              createPlaylistElement(playlist)
+    }    
+}

@@ -17,28 +17,28 @@
 .imgCss {
     display: flex;
     justify-content: space-between;
-    height: 75px;
-  width: 75px;
-  padding-top: 2.5px ;
-  padding-left: 10px;
-  text-align: center;
-  align-content: center;
+    width: 10%;
+    height: 100% ;
+    padding-left: 10px;
+    text-align: center;
+    align-content: center;
 }
 .Off {
     
     display: flex;
-    font-size: 20px;
+    font-size: 25px;
     justify-content: center;
     justify-content: space-between;
     display: flex;
-    width: 600px;
+    width: 800px;
     height: 80px;
     margin: 10px;
     text-align: end;
     border-style: solid;
-  border-width: 3px;
-  border-radius: 15px;
-  text-align: center;
+    border-width: 3px;
+    border-radius: 15px;
+    text-align: center;
+    background-image: radial-gradient(circle at top right, #b7e2e2 0%, rgb(77, 75, 218) 80%, rgb(113, 22, 173) 100%);
     }
 
 .ShortestDuration{
@@ -47,7 +47,7 @@
 }
 .ShorterDuration {
     padding-block: 35px;   
-    color:  rgb(140, 212, 140);   
+    color:  rgb(42, 177, 42);   
 }
 .ShortDuration {
     padding-block: 35px;   
@@ -92,19 +92,20 @@
     margin: 10px;
     text-align: end;
     border-style: solid;
-  border-width: 3px;
-  border-radius: 15px;
-  text-align: center;
+    border-width: 3px;
+    border-radius: 15px;
+    text-align: center;
     margin-bottom: 35px;
+    background-image: radial-gradient(circle at top right, #f3ef0e 0%, rgb(228, 144, 8) 60%, rgb(228, 160, 216) 100%);
 }
 
 .On{
     display: flex;
     font-size: 30px;
     justify-content: center;
-    justify-content: space-between;
+    justify-content: space-around;
     display: flex;
-    width: 800px;
+    width: 1000px;
     height: 100px;
     margin: 10px;
     text-align: end;
@@ -112,6 +113,36 @@
   border-width: 3px;
   border-radius: 15px;
   text-align: center;
-background-color: rgb(139, 235, 155);
-
+  background-image: radial-gradient(circle at top right, #bce2b7 0%, rgb(26, 153, 115) 60%, rgb(29, 250, 0) 100%);
 }
+#add-section{
+    text-align:center; 
+  
+}
+
+#add-button{
+    margin: 10px;
+    height: 30px;
+    width: 50px;
+    background-image: radial-gradient(circle at top right, #bce2b7 0%, rgb(26, 153, 115) 60%, rgb(29, 250, 0) 100%);
+}
+#body{
+    background-image: radial-gradient(circle at top right, #ffa949 20%, firebrick 60%, dodgerblue 130%);
+}
+.controllButton{
+   
+    width: 5%;
+    height: 50%;
+   
+}
+.deleteButton{
+font-size:30px;
+background-color: red;
+border-color: red;
+}
+.playButton{
+    font-size:30px;
+    background-color:  rgb(105, 211, 105);
+    border-color: rgb(105, 211, 105);
+}
+   
