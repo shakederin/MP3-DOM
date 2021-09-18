@@ -1,1 +1,117 @@
 /* Your code here */
+
+#songs {
+    flex-direction:column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#playlists {
+    flex-direction:column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.imgCss {
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+  width: 75px;
+  padding-top: 2.5px ;
+  padding-left: 10px;
+  text-align: center;
+  align-content: center;
+}
+.Off {
+    
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    justify-content: space-between;
+    display: flex;
+    width: 600px;
+    height: 80px;
+    margin: 10px;
+    text-align: end;
+    border-style: solid;
+  border-width: 3px;
+  border-radius: 15px;
+  text-align: center;
+    }
+
+.ShortestDuration{
+    padding-block: 35px;   
+    color:    rgb(143, 243, 13);  
+}
+.ShorterDuration {
+    padding-block: 35px;   
+    color:  rgb(140, 212, 140);   
+}
+.ShortDuration {
+    padding-block: 35px;   
+    color: rgb(49, 138, 49);  
+}
+.MediumDuration {
+    padding-block: 35px;   
+    color: rgb(201, 139, 7); 
+}
+.LongDuration {
+    padding-block: 35px;   
+    color: rgb(185, 64, 8); 
+}
+.LongererDuration {
+    padding-block: 35px;   
+    color: rgb(180, 36, 11); 
+}
+.LongerestDuration {
+    padding-block: 35px;   
+    color: rgb(255, 38, 0); 
+}
+
+.headerMain{
+    display: flex;
+    font-size: 100px;
+    justify-content: center;
+}
+.header{
+    display: flex;
+    font-size: 80px;
+    justify-content: center;
+}
+
+.playlistsList{
+    display: flex;
+    font-size: 40px;
+    justify-content: center;
+    justify-content: space-around;
+    display: flex;
+    width: 700px;
+    height: 50px;
+    margin: 10px;
+    text-align: end;
+    border-style: solid;
+  border-width: 3px;
+  border-radius: 15px;
+  text-align: center;
+    margin-bottom: 35px;
+}
+
+.On{
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    justify-content: space-between;
+    display: flex;
+    width: 800px;
+    height: 100px;
+    margin: 10px;
+    text-align: end;
+    border-style: solid;
+  border-width: 3px;
+  border-radius: 15px;
+  text-align: center;
+background-color: rgb(139, 235, 155);
+
+}
