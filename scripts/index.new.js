@@ -5,29 +5,28 @@
  * @param {Number} songId - the ID of the song to play
  */
  let idOnclick = 1;
- function playSong(songId) {
-     document.getElementById("songs").innerHTML = '';
-     for ( const song of sortedSongs){
-         if(song.id === songId){
+function playSong(songId) {
+    document.getElementById("songs").innerHTML = '';
+    for ( const song of sortedSongs){
+        if(song.id === songId){
              idOnclick = 2;
              createSongElement(song);
        
-         } 
-         else {
-             idOnclick = 1;
-             if (deletedId.indexOf(song.id) < 0 ){
-             createSongElement(song);
-             }
-         }
-     }
- }
-
+        } 
+        else {
+            idOnclick = 1;
+            if (deletedId.indexOf(song.id) < 0 ){
+            createSongElement(song);
+            }
+        }
+    }
+}
 
 function durationToSeconds(duration){
     let mm = duration[0] + duration[1];
     let ss = duration[3] + duration[4];
     return duration = +mm * 60 + +ss;
-    }
+}
 
 /**
  * Adds a song to the player, and updates the DOM to match.
@@ -46,7 +45,6 @@ function addSong(title, album, artist, duration, coverArt) {
     ) 
 }
 
-
 function generateId (){
     let maxId = 0;
     for (let i = 0 ; i < player.songs.length ; i++){
@@ -56,6 +54,7 @@ function generateId (){
     }
     return maxId +1;
 }
+
 // Making the add-song-button actually do something
 function collectInfo (){
     let songInfo = [] ;
@@ -77,33 +76,10 @@ function collectInfo (){
 let action = document.getElementById("add-button");
 action.addEventListener("click", collectInfo);
 
-
-
-
-/**
- * Acts on a click event on an element inside the songs list.
- * Should handle clicks on play buttons and remove buttons of songs.
- *
- * @param {MouseEvent} event - the click event
- */
-function handleSongClickEvent(event) {
-   
-}
-
-/**
- * Handles a click event on the button that adds songs.
- *
- * @param {MouseEvent} event - the click event
- */
-function handleAddSongEvent(event) {
-    // Your code here
-}
-
 /**
  * Creates a song DOM element based on a song object.
  */
-
- const songss = document.getElementById("songs");
+const songss = document.getElementById("songs");
 
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
         let clssong ="Off";
@@ -133,50 +109,29 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         songEle.append(durationEl);
         songss.append(songEle);
     }
-    function removeSong(id) {
-        let deletedSong = [];
-        let deletedFromPlaylist = [];
-        let x;
-        let k = 0;
-        for (x in player.songs){
-            if (player.songs[x].id === id){
-              k = 1;
-              deletedSong = player.songs.splice([x],1); 
-              break;
-            }
-        }   
-            k = 0; 
-            for (x in player.playlists){
-              if (player.playlists[x].songs.indexOf(id)>=0 ) {
-                k = 1;
-                deletedFromPlaylist = player.playlists[x].songs.splice(player.playlists[x].songs.indexOf(id),1);
-                break;
-              }
-            } 
-        }
-    
-    function ClassByDurationLength (duration){
-        if (duration < 120) {
-            return ("ShortestDuration");
-        }
-        if (duration > 119 && duration < 180) {
-            return ("ShorterDuration");
-        }
-        if (duration > 179 && duration < 240) {
-            return ("ShortDuration");
-        }
-        if (duration > 239 && duration < 300) {
-            return ("MediumDuration");
-        }
-        if (duration > 299 && duration < 360) {
-            return ("LongDuration"); 
-        }
-        if (duration > 359 && duration < 420) {
-            return ("LongererDuration"); 
-        } else {
-            return ("LongerestDuration");
-        }     
+
+function ClassByDurationLength (duration){
+    if (duration < 120) {
+        return ("ShortestDuration");
     }
+    if (duration > 119 && duration < 180) {
+        return ("ShorterDuration");
+    }
+    if (duration > 179 && duration < 240) {
+        return ("ShortDuration");
+    }
+    if (duration > 239 && duration < 300) {
+        return ("MediumDuration");
+    }
+    if (duration > 299 && duration < 360) {
+        return ("LongDuration"); 
+    }
+    if (duration > 359 && duration < 420) {
+        return ("LongererDuration"); 
+    } else {
+        return ("LongerestDuration");
+    }     
+}
 
 /**
  * Creates a playlist DOM element based on a playlist object.
@@ -185,28 +140,19 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  
 function createPlaylistElement({ id, name, songs }) {
     const playlistList = createElement("div", [], ["playlistsList"]);
-     const playlistEl = createElement("span", [name], ["playlistsName"]);
-     const playlistDuration = createElement("span", [" " +durationMmss(playlistTotalDuration(id))], ["playlistsName"]);
-     const playlistLegnth = createElement("span", [" " + songs.length +" songs"]);
-     playlistList.append(playlistEl);
-     playlistList.append(playlistLegnth);
-     playlistList.append( playlistDuration);
-     playlistt.append(playlistList);
- }
+    const playlistEl = createElement("span", [name], ["playlistsName"]);
+    const playlistDuration = createElement("span", [" " +durationMmss(playlistTotalDuration(id))], ["playlistsName"]);
+    const playlistLegnth = createElement("span", [" " + songs.length +" songs"]);
+    playlistList.append(playlistEl);
+    playlistList.append(playlistLegnth);
+    playlistList.append( playlistDuration);
+    playlistt.append(playlistList);
+}
 
 /**
  * Creates a new DOM element.
  *
- * Example usage:
- * createElement("div", ["just text", createElement(...)], ["nana", "banana"], {id: "bla"}, {click: (...) => {...}})
- *
- * @param {String} tagName - the type of the element
- * @param {Array} children - the child elements for the new element.
- *                           Each child can be a DOM element, or a string (if you just want a text element).
- * @param {Array} classes - the class list of the new element
- * @param {Object} attributes - the attributes for the new element
- * @param {Object} eventListeners - the event listeners on the element
- */
+*/
 function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
     const el = document.createElement(tagName);
     for ( let child of children){
@@ -223,17 +169,6 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
     };
         return el;
 }
-
-/**
- * Inserts all songs in the player as DOM elements into the songs list.
- */
-function generateSongs() {
-    // Your code here
-}
-
-
-
-document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
 
 let sortedSongs ;
 sortSongsByTitle();
@@ -300,18 +235,13 @@ for ( const song of sortedSongs){
      }  
  }                      
  
- const inputsPlace = document.getElementById("inputs")
-
- const headerSongss = createElement("div", ["Songs:"], ["header"]);
- document.body.prepend(headerSongss);
- 
- const headerr = createElement("div", ["MP3 Player"], ["headerMain"]);
- document.body.prepend(headerr);
- 
-
+const inputsPlace = document.getElementById("inputs")
+const headerSongss = createElement("div", ["Songs:"], ["header"]);
+document.body.prepend(headerSongss);
+const headerr = createElement("div", ["MP3 Player"], ["headerMain"]);
+document.body.prepend(headerr);
 
 const deletedId = [];
-
 function deteleSongButton(id){
     document.getElementById("songs").innerHTML = '';
     deletedId.push(id);
