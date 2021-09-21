@@ -159,7 +159,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
         if (typeof child === "string"){
            child = document.createTextNode(child);
         }
-        el.append(child)
+        el.append(child);
     }
     for ( const clas of classes){
         el.classList.add(clas);
